@@ -1,6 +1,100 @@
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class demo_boids extends PApplet {
+
+int currentTime;
+int previousTime;
+int deltaTime;
+
+ArrayList<Mover> flock;
+int flockSize = 50;
+
+boolean debug = false;
+
+public void setup () {
+  
+  currentTime = millis();
+  previousTime = millis();
+  
+  flock = new ArrayList<Mover>();
+  
+  for (int i = 0; i < flockSize; i++) {
+    Mover m = new Mover(new PVector(random(0, width), random(0, height)), new PVector(random (-2, 2), random(-2, 2)));
+    m.fillColor = color(random(255), random(255), random(255));
+    flock.add(m);
+  }
+
+  flock.get(0).debug = true;
+}
+
+public void draw () {
+  currentTime = millis();
+  deltaTime = currentTime - previousTime;
+  previousTime = currentTime;
+
+  
+  update(deltaTime);
+  display();  
+}
+
+/***
+  The calculations should go here
+*/
+public void update(int delta) {
+  
+  for (Mover m : flock) {
+    m.flock(flock);
+    m.update(delta);
+  }
+}
+
+/***
+  The rendering should go here
+*/
+public void display () {
+  background(0);
+  
+  for (Mover m : flock) {
+    m.display();
+  }
+}
+
+public void keyPressed() {
+  switch (key) {
+    case 'd':
+      debug = !debug;
+      break;
+  }
+}
+abstract class GraphicObject {
+  PVector location;
+  PVector velocity;
+  PVector acceleration;
+  
+  int fillColor = color (255);
+  int strokeColor = color (255);
+  float strokeWeight = 1;
+  
+  public abstract void update(float deltaTime);
+  
+  public abstract void display();
+  
+}
 class Mover extends GraphicObject {
   float topSpeed = 5;
-  float topSteer = 0.03;
+  float topSteer = 0.03f;
   
   float mass = 1;
   
@@ -10,7 +104,7 @@ class Mover extends GraphicObject {
   float radiusSeparation = 10 * r;
   float radiusAlignment = 20 * r;
 
-  float weightSeparation = 1.5;
+  float weightSeparation = 1.5f;
   float weightAlignment = 1;
   
   PVector steer;
@@ -31,7 +125,7 @@ class Mover extends GraphicObject {
     this.acceleration = new PVector (0 , 0);
   }
   
-  void checkEdges() {
+  public void checkEdges() {
     if (location.x < 0) {
       location.x = width - r;
     } else if (location.x + r> width) {
@@ -45,7 +139,7 @@ class Mover extends GraphicObject {
     }
   }
   
-  void flock (ArrayList<Mover> boids) {
+  public void flock (ArrayList<Mover> boids) {
     PVector separation = separate(boids);
     PVector alignment = align(boids);
     
@@ -57,7 +151,7 @@ class Mover extends GraphicObject {
   }
   
   
-  void update(float deltaTime) {
+  public void update(float deltaTime) {
     checkEdges();
     
     velocity.add (acceleration);
@@ -69,7 +163,7 @@ class Mover extends GraphicObject {
     acceleration.mult (0);      
   }
   
-  void display() {
+  public void display() {
     noStroke();
     fill (fillColor);
     
@@ -93,7 +187,7 @@ class Mover extends GraphicObject {
     }
   }
   
-  PVector separate (ArrayList<Mover> boids) {
+  public PVector separate (ArrayList<Mover> boids) {
     if (steer == null) {
       steer = new PVector(0, 0, 0);
     }
@@ -131,7 +225,7 @@ class Mover extends GraphicObject {
     return steer;
   }
 
-  PVector align (ArrayList<Mover> boids) {
+  public PVector align (ArrayList<Mover> boids) {
 
     if (sum == null) {
       sum = new PVector();      
@@ -178,7 +272,7 @@ class Mover extends GraphicObject {
     
   }
   
-  void applyForce (PVector force) {
+  public void applyForce (PVector force) {
     PVector f;
     
     if (mass != 1)
@@ -189,7 +283,7 @@ class Mover extends GraphicObject {
     this.acceleration.add(f);    
   }
   
-  void renderDebug() {
+  public void renderDebug() {
     pushMatrix();
       noFill();
       translate(location.x, location.y);
@@ -202,5 +296,15 @@ class Mover extends GraphicObject {
       ellipse (0, 0, radiusAlignment, radiusAlignment);
       
     popMatrix();
+  }
+}
+  public void settings() {  fullScreen(P2D); }
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "demo_boids" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
   }
 }

@@ -5,7 +5,6 @@ int deltaTime;
 ArrayList<Mover> flock;
 int flockSize = 50;
 
-boolean debug = false;
 
 void setup () {
   fullScreen(P2D);

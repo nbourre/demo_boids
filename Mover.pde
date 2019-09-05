@@ -88,7 +88,7 @@ class Mover extends GraphicObject {
     
     popMatrix();
     
-    if (debug || this.debug) {
+    if (debug) {
       renderDebug();
     }
   }

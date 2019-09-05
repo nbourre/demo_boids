@@ -74,7 +74,7 @@ public void display () {
 public void keyPressed() {
   switch (key) {
     case 'd':
-      debug = !debug;
+      flock.get(0).debug = !flock.get(0).debug;
       break;
   }
 }

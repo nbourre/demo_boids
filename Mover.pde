@@ -6,6 +6,8 @@ class Mover extends GraphicObject {
   float r = 10; // Rayon du boid
   
   float radiusSeparation = 10 * r;
+
+  float mass = 1.0;
   
   Mover () {
     location = new PVector();
@@ -19,7 +21,6 @@ class Mover extends GraphicObject {
     this.location = loc;
     this.velocity = vel;
     this.acceleration = new PVector (0 , 0);
-    this.topSpeed = 100;
   }
   
   void checkEdges() {
@@ -103,5 +104,16 @@ class Mover extends GraphicObject {
     }
     
     return steer;
+  }
+
+  void applyForce (PVector force) {
+    PVector f;
+    
+    if (mass != 1)
+      f = PVector.div (force, mass);
+    else
+      f = force;
+   
+    this.acceleration.add(f);    
   }
 }

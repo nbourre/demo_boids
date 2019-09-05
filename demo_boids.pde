@@ -54,10 +54,4 @@ void display () {
   }
 }
 
-void keyPressed() {
-  switch (key) {
-    case 'd':
-      debug = !debug;
-      break;
-  }
-}
+

@@ -17,6 +17,7 @@ class Mover extends GraphicObject {
   PVector sum;
 
   boolean debug = false;
+  String debugMessage = "";
   int msgCount = 0;
   
   Mover () {
@@ -155,17 +156,6 @@ class Mover extends GraphicObject {
       sum.div((float)count);
       sum.setMag(topSpeed);
 
-      if (this.debug) {
-        if (msgCount % 60 == 0) {
-          msgCount = 0;
-
-          println("Sum vector is (" + (sum.x) + "," + (sum.y)  + ")\tMagnitude : " + sum.mag());
-        }
-
-        msgCount++;
-      }
-      
-
 
       PVector steer = PVector.sub(sum, this.velocity);
       steer.limit(topSteer);
@@ -202,5 +192,17 @@ class Mover extends GraphicObject {
       ellipse (0, 0, radiusAlignment, radiusAlignment);
       
     popMatrix();
+
+
+    if (msgCount % 60 == 0) {
+      msgCount = 0;
+      if (debugMessage != "") {
+        println(debugMessage);
+        debugMessage = "";
+      }
+    }
+
+    msgCount++;
+    
   }
 }

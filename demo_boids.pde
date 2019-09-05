@@ -35,6 +35,7 @@ void draw () {
 void update(int delta) {
   
   for (Mover m : flock) {
+    m.flock(flock);
     m.update(delta);
   }
 }

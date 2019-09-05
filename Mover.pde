@@ -36,6 +36,12 @@ class Mover extends GraphicObject {
     }
   }
   
+  void flock (ArrayList<Mover> boids) {
+    PVector separation = separate(boids);
+    
+    applyForce(separation);
+  }
+
   void update(float deltaTime) {
     checkEdges();
     

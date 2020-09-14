@@ -3,12 +3,13 @@ int previousTime;
 int deltaTime;
 
 ArrayList<Mover> flock;
-int flockSize = 50;
+int flockSize = 10;
 
 boolean debug = false;
 
 void setup () {
-  fullScreen(P2D);
+  //fullScreen(P2D);
+  size (800, 600);
   currentTime = millis();
   previousTime = millis();
   
@@ -27,7 +28,6 @@ void draw () {
   currentTime = millis();
   deltaTime = currentTime - previousTime;
   previousTime = currentTime;
-
   
   update(deltaTime);
   display();  

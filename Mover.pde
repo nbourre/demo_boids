@@ -84,9 +84,13 @@ class Mover extends GraphicObject {
       if (d > 0 && d < radiusSeparation) {
         PVector diff = PVector.sub(location, other.location);
         
-        diff.normalize();
-        diff.div(d);
+        diff.normalize(); // Ramène à une longueur de 1
         
+        // Division par la distance pour pondérer.
+        // Plus qu'il est loin, moins qu'il a d'effet
+        diff.div(d); 
+        
+        // Force de braquage
         steer.add(diff);
         
         count++;

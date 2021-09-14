@@ -50,3 +50,31 @@ void display () {
     m.display();
   }
 }
+
+boolean debugMode = false;
+color oldColor;
+
+void keyPressed() {
+  if (key == 'i') {
+    debugMode = !debugMode;
+    
+    // Mets en évidence le dernier boids
+    for (Mover m : flock) {
+    
+      if (debugMode) {
+        if (m != flock.get(flock.size() - 1)) {
+          m.SetAlpha(100);
+        } else {
+          oldColor = m.fillColor;
+          m.fillColor = color (0, 255, 0);
+        }
+      } else {
+        if (m == flock.get(flock.size() - 1)) {
+          m.fillColor = oldColor;
+        }
+        
+        m.SetAlpha(255);       
+      }
+    }
+  }
+}

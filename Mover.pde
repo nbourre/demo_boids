@@ -9,6 +9,10 @@ class Mover extends GraphicObject {
 
   float mass = 1.0;
   
+  float red, g, b;
+  
+  boolean debugMode = false;
+  
   Mover () {
     location = new PVector();
     velocity = new PVector();
@@ -119,5 +123,13 @@ class Mover extends GraphicObject {
       f = force;
    
     this.acceleration.add(f);    
+  }
+  
+  void SetAlpha(int alpha) {
+    red = red(fillColor);
+    g = green(fillColor);
+    b = blue(fillColor);
+    
+    fillColor = color (red, g, b, alpha);    
   }
 }

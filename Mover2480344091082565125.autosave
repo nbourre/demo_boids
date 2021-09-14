@@ -75,24 +75,17 @@ class Mover extends GraphicObject {
     endShape();
     
     if (debugMode) {
+      noFill();
+      stroke(255, 0, 0);
+      ellipse (0, 0, radiusSeparation * 2, radiusSeparation * 2);
       rotate(-theta);
-      displayDebugCircle(radiusSeparation, color (0, 255, 0), "Separation");
+      String msg = "Separation";
+      
+      float sw = textWidth(msg);
+      text (msg, - sw / 2, -radiusSeparation + 10);
     }
     
     popMatrix();  
-  }
-  
-  void displayDebugCircle(float radius, color c, String title) {
-    noFill();
-    stroke(c);
-    strokeWeight(2);
-    
-    if (title != null && title != "") {
-      float sz = textWidth(title);
-      text(title, -sz / 2, -radius + 10);
-    }
-    
-    ellipse(0, 0, radius * 2, radius * 2);
   }
   
   PVector separate (ArrayList<Mover> boids) {
@@ -143,15 +136,11 @@ class Mover extends GraphicObject {
     this.acceleration.add(f);    
   }
   
-  void setAlpha(int alpha) {
+  void SetAlpha(int alpha) {
     red = red(fillColor);
     g = green(fillColor);
     b = blue(fillColor);
     
     fillColor = color (red, g, b, alpha);    
-  }
-  
-  void setDebugMode(boolean debugMode) {
-    this.debugMode = debugMode;
   }
 }

@@ -63,19 +63,18 @@ void keyPressed() {
     
       if (debugMode) {
         if (m != flock.get(flock.size() - 1)) {
-          m.setAlpha(100);
+          m.SetAlpha(100);
         } else {
           oldColor = m.fillColor;
           m.fillColor = color (0, 255, 0);
-          m.setDebugMode(debugMode);
+          m.debugMode = debugMode;
         }
       } else {
         if (m == flock.get(flock.size() - 1)) {
           m.fillColor = oldColor;
-          m.setDebugMode(debugMode);
         }
         
-        m.setAlpha(255);       
+        m.SetAlpha(255);       
       }
     }
   }

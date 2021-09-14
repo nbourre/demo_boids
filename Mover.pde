@@ -5,7 +5,7 @@ class Mover extends GraphicObject {
   float theta = 0;
   float r = 10; // Rayon du boid
   
-  float radiusSeparation = 10 * r;
+  float radiusSeparation = 6 * r;
 
   float mass = 1.0;
   

@@ -7,6 +7,10 @@ class Mover extends GraphicObject {
   
   float radiusSeparation = 10 * r;
   
+  float red, g, b;
+  
+  boolean debugMode = false;
+  
   Mover () {
     location = new PVector();
     velocity = new PVector();
@@ -49,7 +53,7 @@ class Mover extends GraphicObject {
   void display() {
     noStroke();
     fill (fillColor);
-    
+        
     theta = velocity.heading() + radians(90);
     
     pushMatrix();
@@ -98,4 +102,13 @@ class Mover extends GraphicObject {
     
     return steer;
   }
+  
+  void SetAlpha(int alpha) {
+    red = red(fillColor);
+    g = green(fillColor);
+    b = blue(fillColor);
+    
+    fillColor = color (red, g, b, alpha);    
+  }
+  
 }

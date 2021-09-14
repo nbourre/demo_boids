@@ -185,11 +185,11 @@ class Mover extends GraphicObject {
       translate(location.x, location.y);
       
       strokeWeight(1);
-      stroke (100, 0, 0);
-      ellipse (0, 0, radiusSeparation, radiusSeparation);
+      stroke (255, 0, 0);
+      ellipse (0, 0, radiusSeparation * 2, radiusSeparation * 2);
 
-      stroke (0, 100, 0);
-      ellipse (0, 0, radiusAlignment, radiusAlignment);
+      stroke (0, 255, 0);
+      ellipse (0, 0, radiusAlignment * 2, radiusAlignment * 2);
       
     popMatrix();
 

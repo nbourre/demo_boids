@@ -10,6 +10,10 @@ void setup () {
   currentTime = millis();
   previousTime = millis();
   
+  initBoids();
+}
+
+void initBoids() {
   flock = new ArrayList<Mover>();
   
   for (int i = 0; i < flockSize; i++) {
@@ -78,5 +82,9 @@ void keyPressed() {
         m.setAlpha(255);       
       }
     }
+  }
+  
+  if (key == 'r') {
+    initBoids();
   }
 }

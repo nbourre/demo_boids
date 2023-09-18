@@ -17,11 +17,9 @@ class Mover extends GraphicObject {
     acceleration = new PVector();
   }
   
-  Mover (PVector loc, PVector vel) {
-    
-    
-    this.location = loc;
-    this.velocity = vel;
+  Mover (PVector loc, PVector vel) {   
+    this.location = loc.copy();
+    this.velocity = vel.copy();
     this.acceleration = new PVector (0 , 0);
     this.topSpeed = 100;
   }
@@ -110,5 +108,6 @@ class Mover extends GraphicObject {
     
     fillColor = color (red, g, b, alpha);    
   }
+  
   
 }

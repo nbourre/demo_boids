@@ -33,8 +33,8 @@ class Mover extends GraphicObject {
   }
   
   Mover (PVector loc, PVector vel) {
-    this.location = loc;
-    this.velocity = vel;
+    this.location = loc.copy();
+    this.velocity = vel.copy();
     this.acceleration = new PVector (0 , 0);
   }
   
